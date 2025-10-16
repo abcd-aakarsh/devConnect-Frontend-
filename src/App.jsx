@@ -12,6 +12,11 @@ import { BASE_URL } from "./utils/constants";
 import Profile from "./pages/Profile";
 import ProtectedRoute from "./components/navigation/ProtectedRoute";
 import EditProfile from "./pages/EditProfile";
+import DashboardLayout from "./components/layout/DashboardLayout";
+import Messages from "./pages/Messages";
+
+import Matches from "./pages/Matches";
+import Requests from "./pages/Requests";
 
 const App = () => {
   const dispatch = useDispatch();
@@ -45,11 +50,17 @@ const App = () => {
           <Route
             path="/feed"
             element={
-              <ProtectedRoute loading={loading}>
-                <FeedPage />
+              <ProtectedRoute>
+                <DashboardLayout />
               </ProtectedRoute>
             }
-          />
+          >
+            <Route index element={<FeedPage />} />
+            <Route path="messages" element={<Messages />} />
+            <Route path="matches" element={<Matches />} />
+            <Route path="requests" element={<Requests />} />
+          </Route>
+
           <Route
             path="/profile"
             element={

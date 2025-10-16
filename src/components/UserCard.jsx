@@ -1,11 +1,56 @@
-import React from "react";
-import { useSelector } from "react-redux";
-
-const UserCard = ({ user, onPass, onSendRequest }) => {
+import axios from "axios";
+import React, { useState } from "react";
+import { useDispatch, useSelector } from "react-redux";
+import { BASE_URL } from "../utils/constants.js";
+import Toast from "./Toast.jsx";
+import { removeUserFromFeed } from "../appStore/feedSlice/feedSlice.js";
+const UserCard = ({ user }) => {
   const loggedInUser = useSelector((state) => state?.user.user);
+  const [toast, setToast] = useState(null);
+  const dispatch = useDispatch();
   const colors = ["#10B981", "#3B82F6", "#F59E0B", "#EF4444", "#8B5CF6"];
   const getRandomColor = (i) => colors[i % colors.length];
   const userExperienceLevel = user?.experienceLevel?.toUpperCase() || "STUDENT";
+  const onSendRequest = async (toUser) => {
+    try {
+      const res = await axios.post(
+        `${BASE_URL}/connections/request/${toUser}`,
+        {},
+        {
+          withCredentials: true,
+        }
+      );
+      console.log(res.data);
+      dispatch(removeUserFromFeed(toUser));
+
+      setToast({ status: "success", message: "Request sent successfully!" });
+    } catch (error) {
+      setToast({
+        status: "error",
+        message: error?.message || "Failed to send request.",
+      });
+    }
+  };
+  const onPass = async () => {
+    try {
+      const res = await axios.post(
+        `${BASE_URL}/connections/pass/${user?.id}`,
+        {},
+        {
+          withCredentials: true,
+        }
+      );
+      console.log(res.data);
+      dispatch(removeUserFromFeed(user?.id));
+      setToast({ status: "success", message: "User passed successfully!" });
+    } catch (error) {
+      setToast({
+        status: "error",
+        message: error?.message || "Failed to pass user.",
+      });
+    }
+  };
+
   return (
     <div className="w-full! max-w-sm! h-fit bg-gray-900! rounded-2xl! shadow-xl! border border-gray-800 p-8! flex flex-col items-center! transition-all! duration-200 hover:shadow-2xl hover:border-gray-700">
       {/* Avatar */}
@@ -60,12 +105,21 @@ const UserCard = ({ user, onPass, onSendRequest }) => {
             Pass
           </button>
           <button
-            onClick={onSendRequest}
+            onClick={() => {
+              onSendRequest(user?.id);
+            }}
             className="flex-1 py-2.5! rounded-xl! bg-emerald-500 hover:bg-emerald-600 text-white text-sm font-medium transition-colors duration-200"
           >
             Send Request
           </button>
         </div>
+      )}
+      {toast && (
+        <Toast
+          message={toast.message}
+          status={toast.status}
+          onClose={() => setToast(null)}
+        />
       )}
     </div>
   );

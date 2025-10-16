@@ -113,14 +113,14 @@ const AppLayout = () => {
         </main>
 
         {/* Footer */}
-        <footer className="  footer-center text-base-content text-center !p-4">
+        {/* <footer className="  footer-center text-base-content text-center !p-4">
           <aside>
             <p className="text-sm md:text-xl font-bold font-serif font-kode bg-gradient-to-r from-cyan-500 to-emerald-500 text-transparent bg-clip-text">
               Copyright © {new Date().getFullYear()} - All rights reserved by
               @abcd-aakarsh
             </p>
           </aside>
-        </footer>
+        </footer> */}
       </div>
     </>
   );

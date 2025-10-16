@@ -8,6 +8,16 @@ const Profile = () => {
 
   return (
     <div className="!p-6 !max-w-4xl !mx-auto">
+      {/* Back to Feed */}
+      <div className="mb-4!">
+        <NavLink
+          to={"/feed"}
+          className="mb-4! !px-4 !py-2 text-sm !rounded-xl   text-emerald-500 hover:bg-emerald-600 hover:text-white  border-emerald-500 transition"
+        >
+          ← Back to Feed
+        </NavLink>
+      </div>
+
       {/* Header */}
       <div className="flex justify-between items-center !px-4 !mb-6">
         <div>
@@ -27,8 +37,8 @@ const Profile = () => {
 
       {/* Profile Card */}
       <div className="backdrop-blur-3xl bg-gray-900/80 rounded-3xl !px-8 !py-6 shadow-lg border border-gray-700">
-        <div className="mt-4 flex flex-col md:flex-row gap-8 !p-4 items-center">
-          <div className="relative w-44 h-44">
+        <div className="mt-4 flex flex-col md:flex-row gap-8 !p-4 md:items-center">
+          <div className="relative w-44 flex mx-auto! h-44">
             <img
               src={user.avatar || "/default-avatar.png"}
               alt="Profile"
@@ -43,7 +53,7 @@ const Profile = () => {
           </div>
 
           {/* User Info */}
-          <div className="text-start mt-4 flex-1">
+          <div className="text-start! mt-4 flex-1">
             <p className="text-gray-400 font-semibold">Name</p>
             <p className=" text-white font-medium">
               {user?.firstName} {user?.lastName}

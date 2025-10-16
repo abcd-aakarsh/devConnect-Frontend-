@@ -1,9 +1,10 @@
-import React, { useEffect, useState } from "react";
+import React, { use, useEffect, useState } from "react";
 import { useSelector } from "react-redux";
 import UserCard from "../components/UserCard";
 import axios from "axios";
 import { BASE_URL } from "../utils/constants";
 import Toast from "../components/Toast";
+import { useNavigate } from "react-router";
 
 const EditProfile = () => {
   const loggedInUser = useSelector((state) => state?.user.user);
@@ -15,6 +16,7 @@ const EditProfile = () => {
   const [skills, setSkills] = useState([]);
   const [skillInput, setSkillInput] = useState("");
   const [toast, setToast] = useState(null);
+  const navigate = useNavigate();
   const handleSubmit = async () => {
     try {
       const res = await axios.patch(`${BASE_URL}/profile/me/edit`, updates, {
@@ -25,6 +27,9 @@ const EditProfile = () => {
         message: res?.data.message,
         status: "success",
       });
+      setTimeout(() => {
+        navigate("/profile");
+      }, 1000);
     } catch (error) {
       setToast({
         message: error.response?.data?.message || "An error occurred",
@@ -70,7 +75,7 @@ const EditProfile = () => {
   return (
     <div className="min-h-[90vh] flex lg:flex-row flex-col">
       {/* Left Section - Form */}
-      <div className="flex-1  flex flex-col justify-center items-center p-4! px-10! gap-8">
+      <div className="flex-1  flex flex-col justify-center items-center p-4! md:px-10! gap-8">
         <div className="card w-full  max-w-2xl bg-base-100 shadow-sm p-4!">
           <h2 className=" text-xl lg:text-2xl font-bold text-center text-emerald-400 mb-2!">
             Edit Profile

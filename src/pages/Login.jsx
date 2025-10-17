@@ -26,16 +26,12 @@ const Login = () => {
         },
         { withCredentials: true }
       );
-      console.log("Login successful:", res.data.data);
+
       dispatch(setUser(res.data.data));
       navigate("/feed");
     } catch (error) {
       setError(
         error.response?.data?.message || "Login failed. Please try again."
-      );
-      console.log(
-        "Login failed:",
-        error.response?.data?.message || error.message
       );
     }
   };

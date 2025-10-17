@@ -20,7 +20,7 @@ const UserCard = ({ user }) => {
           withCredentials: true,
         }
       );
-      console.log(res.data);
+
       dispatch(removeUserFromFeed(toUser));
 
       setToast({ status: "success", message: "Request sent successfully!" });
@@ -40,7 +40,7 @@ const UserCard = ({ user }) => {
           withCredentials: true,
         }
       );
-      console.log(res.data);
+
       dispatch(removeUserFromFeed(user?.id));
       setToast({ status: "success", message: "User passed successfully!" });
     } catch (error) {

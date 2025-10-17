@@ -1,4 +1,4 @@
-import React, { use, useEffect, useState } from "react";
+import React, { useEffect, useState } from "react";
 import { useSelector } from "react-redux";
 import UserCard from "../components/UserCard";
 import axios from "axios";
@@ -22,7 +22,7 @@ const EditProfile = () => {
       const res = await axios.patch(`${BASE_URL}/profile/me/edit`, updates, {
         withCredentials: true,
       });
-      console.log(res);
+
       setToast({
         message: res?.data.message,
         status: "success",

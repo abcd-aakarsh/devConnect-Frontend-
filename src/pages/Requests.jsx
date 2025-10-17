@@ -54,11 +54,13 @@ const Requests = () => {
       const res = await axios.get(`${BASE_URL}/users/requests/pending`, {
         withCredentials: true,
       });
-      console.log("Fetched requests:", res?.data);
 
       setRequests(res?.data?.data?.connections || []);
     } catch (error) {
-      console.error("Error fetching requests:", error);
+      setToast({
+        message: error.response?.data?.message || "An error occurred",
+        status: "error",
+      });
     } finally {
       setLoading(false);
     }

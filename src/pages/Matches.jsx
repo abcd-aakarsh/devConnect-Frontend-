@@ -5,17 +5,17 @@ import MatchCard from "../components/MatchCard.jsx";
 
 const Matches = () => {
   const [matches, setMatches] = useState([]);
-  const [loading, setLoading] = useState(true); // 👈 loading state
+  const [loading, setLoading] = useState(true);
 
   const getMatches = async () => {
     try {
       const res = await axios.get(`${BASE_URL}/users/matches`, {
         withCredentials: true,
       });
-      console.log(res?.data.data);
+
       setMatches(res?.data.data.connections || []);
     } catch (error) {
-      console.log(error);
+      console.error("Error fetching matches:", error);
     } finally {
       setLoading(false);
     }

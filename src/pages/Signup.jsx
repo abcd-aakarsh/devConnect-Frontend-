@@ -32,7 +32,7 @@ const Signup = () => {
         dob,
         password,
       });
-      console.log("Signup successful:", res.data);
+
       setToast({
         message: "Signup successful! Redirecting to login...",
         status: "success",
